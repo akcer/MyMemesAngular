@@ -1,0 +1,60 @@
+<button
+  class="block mx-auto"
+  *ngIf="!isCommentsOpen"
+  pButton
+  type="button"
+  label="Show Comments"
+  [loading]="loading"
+  (click)="showComments()"
+></button>
+<div *ngIf="isCommentsOpen">
+  <ng-container *ngIf="comments$ | async as comments; else commentsLoading">
+    <div *ngIf="!comments.length">No Comments Yet :(</div>
+    <div *ngFor="let comment of comments">
+      <div class="header flex mb-2">
+        <p-avatar
+          size="large"
+          image="{{ apiUrl }}avatars/{{ comment.author.avatar }}"
+        ></p-avatar>
+        <div class="ml-3 text-sm">
+          <a
+            [routerLink]="['/user', comment.author.username]"
+            routerLinkActive="active"
+            ><p class="m-0 text-left">{{ comment.author.username }}</p></a
+          >
+          <p class="mb-0 text-left">{{ comment.createdAt | date: "short" }}</p>
+        </div>
+      </div>
+      <div>{{ comment.text }}</div>
+      <button
+        *ngIf="showRemoveCommentButton(comment?.author?.username)"
+        class="block mx-auto"
+        pButton
+        type="button"
+        label="Remove Comment"
+        (click)="removeComment(comment._id)"
+      ></button>
+      <p-divider></p-divider>
+    </div>
+  </ng-container>
+  <ng-template #commentsLoading>
+    <div class="w-min mx-auto"><p-progressSpinner></p-progressSpinner></div>
+  </ng-template>
+  <span class="p-float-label my-3">
+    <textarea
+      class="w-12"
+      id="comment"
+      pInputTextarea
+      [(ngModel)]="newComment"
+    ></textarea>
+    <label for="comment">Add New Comment</label>
+    <button
+      class="block mx-auto mt-2"
+      label="Add New Comment"
+      pButton
+      type="button"
+      [loading]="loading"
+      (click)="addNewComment(newComment, memeId)"
+    ></button>
+  </span>
+</div>

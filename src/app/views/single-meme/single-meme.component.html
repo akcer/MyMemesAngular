@@ -1,0 +1,10 @@
+<app-meme [meme]="meme" *ngIf="meme$ | async as meme; else error"></app-meme>
+<ng-template #error>
+  <div *ngIf="error$ | async; else loading">
+    <h4>Something goes Wrong :(</h4>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <ng-template #loading>
+    <div class="w-min mx-auto"><p-progressSpinner></p-progressSpinner></div>
+  </ng-template>
+</ng-template>

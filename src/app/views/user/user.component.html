@@ -1,0 +1,18 @@
+<p-card styleClass="meme-card" *ngIf="user$ | async as user; else error">
+  <h3 class="mt-0">{{ user.username }}</h3>
+  <img
+    class="block mx-auto w-11"
+    src="{{ apiUrl }}avatars/{{ user.avatar }}"
+    alt="{{ user.username }} avatar"
+  />
+  <p class="mb-0">Account Created: {{ user.createdAt | date: "short" }}</p>
+</p-card>
+<ng-template #error>
+  <div *ngIf="error$ | async; else loading">
+    <h4>Something goes Wrong :(</h4>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <ng-template #loading>
+    <div class="w-min mx-auto"><p-progressSpinner></p-progressSpinner></div>
+  </ng-template>
+</ng-template>

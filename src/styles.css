@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~normalize.css";
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #121212;
+  color: white;
+}
+
+a,
+a:active {
+  color: white;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  text-align: center;
+}
+.meme-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 2em;
+}

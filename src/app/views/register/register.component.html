@@ -1,0 +1,74 @@
+<h3 class="text-2xl">Register</h3>
+<form class="flex flex-column align-items-center">
+  <span class="p-float-label mb-3">
+    <input
+      id="username"
+      name="username"
+      type="text"
+      pInputText
+      [(ngModel)]="username"
+      autocomplete="username"
+    />
+    <label for="username">Username</label>
+  </span>
+  <span class="p-float-label mb-3">
+    <input
+      id="password"
+      name="password"
+      type="password"
+      pPassword
+      [(ngModel)]="password"
+      autocomplete="new-password"
+    />
+    <label for="password">Password</label>
+  </span>
+  <span class="p-float-label mb-3">
+    <input
+      id="passwordConfirm"
+      name="passwordConfirm"
+      type="password"
+      pPassword
+      [(ngModel)]="passwordConfirm"
+      autocomplete="new-password"
+    />
+    <label for="passwordConfirm">Confirm Password</label>
+  </span>
+  <span class="p-float-label mb-3">
+    <input
+      id="email"
+      name="email"
+      type="text"
+      pInputText
+      [(ngModel)]="email"
+      autocomplete="email"
+    />
+    <label for="email">E-mail</label>
+  </span>
+  <h4 class="text-center text-xl mt-0 mb-2">Select Avatar</h4>
+  <p-fileUpload
+    [customUpload]="true"
+    (uploadHandler)="myUploader($event)"
+    accept="image/*"
+    [maxFileSize]="1000000"
+  >
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
+      </ul>
+      <div *ngIf="file">{{ file.name }} - {{ file.size }} bytes</div>
+    </ng-template>
+  </p-fileUpload>
+  <div class="w-min mx-auto" *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <button
+    class="mt-3"
+    pButton
+    type="button"
+    label="Register"
+    [loading]="loading"
+    (click)="register()"
+  ></button>
+</form>

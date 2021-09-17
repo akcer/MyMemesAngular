@@ -1,0 +1,18 @@
+<ng-container *ngIf="memes$ | async as memes; else error">
+  <app-meme *ngFor="let meme of memes" [meme]="meme"></app-meme>
+</ng-container>
+<p-paginator
+  [rows]="limit"
+  [totalRecords]="memesCount"
+  [rowsPerPageOptions]="[2, 5, 10]"
+  (onPageChange)="paginate($event)"
+></p-paginator>
+<ng-template #error>
+  <div *ngIf="error$ | async; else loading">
+    <h4>Something goes Wrong :(</h4>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <ng-template #loading>
+    <div class="w-min mx-auto"><p-progressSpinner></p-progressSpinner></div>
+  </ng-template>
+</ng-template>

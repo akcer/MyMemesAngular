@@ -1,0 +1,60 @@
+<p-card styleClass="meme-card">
+  <a [routerLink]="['/meme', meme._id]" routerLinkActive="active">
+    <h2 class="mt-0 text-2xl">{{ meme.topTitle }}</h2>
+    <img
+      class="block mx-auto w-11"
+      src="{{ apiUrl }}memes/{{ meme.image }}"
+      alt="{{ meme.topTitle }} {{ meme.bottomTitle }}"
+    />
+    <h3 class="text-2xl">{{ meme.bottomTitle }}</h3>
+    <h4 class="text-xl">{{ meme.text }}</h4>
+  </a>
+  <p-divider></p-divider>
+  <ng-template pTemplate="footer">
+    <div>
+      <div class="flex justify-content-center align-items-center">
+        <button
+          pButton
+          type="button"
+          aria-label="likw"
+          icon="pi pi-thumbs-up"
+          [loading]="likeButtonLoading"
+          (click)="like(meme._id)"
+        ></button>
+        <span class="ml-3 text-xl text-green-600">{{
+          meme.likes?.likesCount
+        }}</span
+        ><p-divider layout="vertical"></p-divider>
+        <span class="mr-3 text-xl text-pink-400">
+          {{ meme.dislikes?.dislikesCount }}
+        </span>
+        <button
+          pButton
+          type="button"
+          aria-label="dislike"
+          icon="pi pi-thumbs-down"
+          [loading]="dislikeButtonLoading"
+          (click)="dislike(meme._id)"
+        ></button>
+      </div>
+      <p>
+        <a
+          [routerLink]="['/user', meme.author?.username || meme.author]"
+          routerLinkActive="active"
+          >Author: {{ meme.author?.username || meme.author }}</a
+        >
+      </p>
+      <p>Created: {{ meme.createdAt | date: "short" }}</p>
+      <app-comments [memeId]="meme._id"></app-comments>
+      <button
+        *ngIf="showDeleteMemeButton"
+        pButton
+        class="block mt-3 mx-auto"
+        type="button"
+        label="Delete Meme"
+        [loading]="deleteButtonLoading"
+        (click)="deleteMeme(meme._id)"
+      ></button>
+    </div>
+  </ng-template>
+</p-card>

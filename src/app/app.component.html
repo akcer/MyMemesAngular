@@ -1,0 +1,14 @@
+<header class="mb-6">
+  <nav>
+    <p-menubar [model]="items">
+      <ng-template pTemplate="end"
+        ><a routerLink="/" routerLinkActive="active"
+          ><h1 class="m-0">MyMemes</h1></a
+        ></ng-template
+      >
+    </p-menubar>
+  </nav>
+</header>
+<main class="min-h-screen"><router-outlet></router-outlet></main>
+<footer class="text-center py-3">Copyrights</footer>
+<p-toast></p-toast>
